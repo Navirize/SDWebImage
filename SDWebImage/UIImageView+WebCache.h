@@ -15,31 +15,31 @@
  * Usage with a UITableViewCell sub-class:
  *
  * @code
-
-#import <SDWebImage/UIImageView+WebCache.h>
-
-...
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *MyIdentifier = @"MyIdentifier";
  
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
+ #import <SDWebImage/UIImageView+WebCache.h>
  
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier]
-                 autorelease];
-    }
+ ...
  
-    // Here we use the provided sd_setImageWithURL: method to load the web image
-    // Ensure you use a placeholder image otherwise cells will be initialized with no image
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:@"http://example.com/image.jpg"]
-                      placeholderImage:[UIImage imageNamed:@"placeholder"]];
+ - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ static NSString *MyIdentifier = @"MyIdentifier";
  
-    cell.textLabel.text = @"My Text";
-    return cell;
-}
-
+ UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
+ 
+ if (cell == nil) {
+ cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier]
+ autorelease];
+ }
+ 
+ // Here we use the provided sd_setImageWithURL: method to load the web image
+ // Ensure you use a placeholder image otherwise cells will be initialized with no image
+ [cell.imageView sd_setImageWithURL:[NSURL URLWithString:@"http://example.com/image.jpg"]
+ placeholderImage:[UIImage imageNamed:@"placeholder"]];
+ 
+ cell.textLabel.text = @"My Text";
+ return cell;
+ }
+ 
  * @endcode
  */
 @interface UIImageView (WebCache)
@@ -188,6 +188,11 @@
  */
 - (void)setIndicatorStyle:(UIActivityIndicatorViewStyle)style;
 
+/**
+ *  Show Custom view to UIImage until download
+ */
+- (void)setCustomLoadingView:(UIView *)customLoadingView;
+
 @end
 
 
@@ -209,5 +214,6 @@
 - (void)cancelCurrentArrayLoad __deprecated_msg("Use `sd_cancelCurrentAnimationImagesLoad`");
 
 - (void)cancelCurrentImageLoad __deprecated_msg("Use `sd_cancelCurrentImageLoad`");
+
 
 @end

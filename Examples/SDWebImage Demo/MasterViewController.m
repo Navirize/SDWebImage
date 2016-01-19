@@ -9,10 +9,12 @@
 #import "MasterViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "DetailViewController.h"
-
-@interface MasterViewController () {
+#import "MMMaterialDesignSpinner.h"
+@interface MasterViewController (){
     NSArray *_objects;
 }
+@property (nonatomic, strong) MMMaterialDesignSpinner *spinnerView;
+
 @end
 
 @implementation MasterViewController
@@ -379,9 +381,21 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
 
-    [cell.imageView setShowActivityIndicatorView:YES];
-    [cell.imageView setIndicatorStyle:UIActivityIndicatorViewStyleGray];
+//    [cell.imageView setShowActivityIndicatorView:YES];
+//    [cell.imageView setIndicatorStyle:UIActivityIndicatorViewStyleGray];
 
+    
+    
+    self.spinnerView = [[MMMaterialDesignSpinner alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    //    spinnerView.bounds = CGRectMake(0, 0, 50, 50);
+    self.spinnerView.tintColor = [UIColor whiteColor];
+    self.spinnerView.center = CGPointMake(CGRectGetMidX(self.spinnerView.bounds), CGRectGetMidY(self.spinnerView.bounds));
+//    [cell addSubview:self.spinnerView];
+    self.spinnerView.lineWidth = 5.0f;
+    
+    
+    [cell.imageView setCustomLoadingView:self.spinnerView];
+    
     cell.textLabel.text = [NSString stringWithFormat:@"Image #%ld", (long)indexPath.row];
     cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
     [cell.imageView sd_setImageWithURL:[NSURL URLWithString:[_objects objectAtIndex:indexPath.row]]
